@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class QuantityInputForInt extends StatefulWidget {
+class QuantityInputForInt extends StatelessWidget {
   final int value;
   final Function(int) onChanged;
   final Color? color;
@@ -14,17 +14,12 @@ class QuantityInputForInt extends StatefulWidget {
     this.label = '',
     this.readOnly = false
   });
-
-  @override
-  QuantityInputForIntState createState() => QuantityInputForIntState();
-}
-
-class QuantityInputForIntState extends State<QuantityInputForInt> {
+  
   TextEditingController _controller = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    _controller.text = widget.value.toString();
+    _controller.text = value.toString();
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 5),
@@ -34,11 +29,11 @@ class QuantityInputForIntState extends State<QuantityInputForInt> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Visibility(
-            visible: widget.label.isNotEmpty,
+            visible: label.isNotEmpty,
             child: Padding(
               padding: EdgeInsets.only(bottom: 5),
               child: Text(
-                widget.label,
+                label,
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   color: Colors.grey[500],
@@ -61,12 +56,12 @@ class QuantityInputForIntState extends State<QuantityInputForInt> {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: widget.color != null ? widget.color : Theme.of(context).primaryColor,
+                    color: color != null ? color : Theme.of(context).primaryColor,
                   ),
                   width: 38,
                   height: 38
                 ),
-                onTap: () => widget.value == 1 ? widget.onChanged(0) : widget.onChanged(-1)
+                onTap: () => value == 1 ? onChanged(0) : onChanged(-1)
               ),
               Container(
                 constraints: BoxConstraints(
@@ -83,7 +78,7 @@ class QuantityInputForIntState extends State<QuantityInputForInt> {
                     decoration: InputDecoration(
                       isDense: true
                     ),
-                    readOnly: widget.readOnly,
+                    readOnly: readOnly,
                     keyboardType: TextInputType.number,
                   )
                 )
@@ -96,12 +91,12 @@ class QuantityInputForIntState extends State<QuantityInputForInt> {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: widget.color != null ? widget.color : Theme.of(context).primaryColor,
+                    color: color != null ? color : Theme.of(context).primaryColor,
                   ),
                   width: 38,
                   height: 38
                 ),
-                onTap: () => widget.onChanged(1),
+                onTap: () => onChanged(1),
               )
             ],
           ),
