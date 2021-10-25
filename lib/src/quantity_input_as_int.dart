@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class QuantityInputAsInt extends StatefulWidget {
   final int value, step;
   final Function(int) onChanged;
-  final Color? color;
+  final Color? buttonColor, iconColor;
   final String label;
   final bool readOnly, acceptsNegatives;
 
@@ -11,7 +11,8 @@ class QuantityInputAsInt extends StatefulWidget {
     this.value = 1,
     this.step = 1,
     required this.onChanged,
-    this.color,
+    this.buttonColor,
+    this.iconColor,
     this.label = '',
     this.readOnly = false,
     this.acceptsNegatives = false
@@ -59,11 +60,12 @@ class _QuantityInputAsIntState extends State<QuantityInputAsInt> {
                 child: Container(
                   child: Icon(
                     Icons.remove,
-                    size: 25
+                    size: 25,
+                    color: widget.iconColor != null ? widget.iconColor : Colors.white
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: widget.color != null ? widget.color : Theme.of(context).primaryColor,
+                    color: widget.buttonColor != null ? widget.buttonColor : Theme.of(context).primaryColor,
                   ),
                   width: 38,
                   height: 38
@@ -96,11 +98,12 @@ class _QuantityInputAsIntState extends State<QuantityInputAsInt> {
                 child: Container(
                   child: Icon(
                     Icons.add,
-                    size: 25
+                    size: 25,
+                    color: widget.iconColor != null ? widget.iconColor : Colors.white
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: widget.color != null ? widget.color : Theme.of(context).primaryColor,
+                    color: widget.buttonColor != null ? widget.buttonColor : Theme.of(context).primaryColor,
                   ),
                   width: 38,
                   height: 38
