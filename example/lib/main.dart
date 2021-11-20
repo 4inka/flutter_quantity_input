@@ -36,10 +36,8 @@ class _QuantityInputSampleState extends State<QuantityInputSample> {
                   'Simple int input'
                 ),
                 QuantityInputAsInt(
-                  //onInput: onInput,
                   value: simpleIntInput,
-                  onButtonPress: (value) => setState(() => simpleIntInput += value),
-                  onInput: (value) => setState(() => simpleIntInput = value)
+                  onChanged: (value) => setState(() => simpleIntInput = int.parse(value))
                 ),
                 Text(
                   'Value: $simpleIntInput',
