@@ -47,14 +47,10 @@ class _QuantityInputSampleState extends State<QuantityInputSample> {
                 SizedBox(
                   height: 20
                 ),
-                Text(
-                  'Simple double input'
-                ),
                 QuantityInputAsDouble(
-                  //onInput: onInput,
+                  label: 'Simple double input (value: $simpleDoubleInput)',
                   value: simpleDoubleInput,
-                  onButtonPress: (value) => setState(() => simpleDoubleInput += value),
-                  onInput: (value) => setState(() => simpleDoubleInput = value)
+                  onChanged: (value) => setState(() => simpleDoubleInput = double.parse(value))
                 ),
                 Text(
                   'Value: $simpleDoubleInput',
