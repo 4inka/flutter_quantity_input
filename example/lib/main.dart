@@ -32,10 +32,8 @@ class _QuantityInputSampleState extends State<QuantityInputSample> {
             child: Column(  
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'Simple int input'
-                ),
                 QuantityInputAsInt(
+                  label: 'Simple int input',
                   value: simpleIntInput,
                   onChanged: (value) => setState(() => simpleIntInput = int.parse(value))
                 ),
