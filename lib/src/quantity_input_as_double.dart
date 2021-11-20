@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class QuantityInputAsDouble extends StatefulWidget {
   final double value, step;
-  final Function(double) onChanged;
+  final Function(double) onButtonPress;
+  final Function(double)? onInput;
   final Color? buttonColor, iconColor;
   final String label;
   final bool readOnly, acceptsNegatives;
+  final InputDecoration? decoration;
 
   QuantityInputAsDouble({
     this.value = 1,
     this.step = 1,
-    required this.onChanged,
+    required this.onButtonPress,
+    this.onInput,
     this.buttonColor,
     this.iconColor,
     this.label = '',
     this.readOnly = false,
-    this.acceptsNegatives = false
+    this.acceptsNegatives = false,
+    this.decoration
   });
 
   @override
@@ -69,10 +75,10 @@ class _QuantityInputAsDoubleState extends State<QuantityInputAsDouble> {
                   ),
                   width: 38,
                   height: 38
-                ),
+                ),  
                 onTap: () {
-                  if (widget.acceptsNegatives) widget.onChanged(-widget.step);
-                  else widget.value == 1 ? widget.onChanged(0) : widget.onChanged(-widget.step);
+                  if (widget.acceptsNegatives) widget.onButtonPress(-widget.step);
+                  else if ((widget.value - widget.step) > 0) widget.onButtonPress(-widget.step);
                 }
               ),
               Container(
@@ -86,11 +92,37 @@ class _QuantityInputAsDoubleState extends State<QuantityInputAsDouble> {
                   child: TextField(
                     controller: _controller,
                     textAlign: TextAlign.center,
-                    decoration: InputDecoration(
+                    decoration: InputDecoration(//[0-9]+.[0-9] r'(^-?\d*\.?\d*)' [0-9.,]+ ([0-9]+(\.[0-9]+)?)
                       isDense: true
                     ),
                     readOnly: widget.readOnly,
-                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      TextInputFormatter.withFunction((oldValue, newValue) {
+                        if (newValue.text.contains(RegExp(r'[a-zA-Z]')))
+                          return oldValue;
+                          
+                        var formatter = NumberFormat("#,###,###,###,###,###,###,###,###,###,###,###,###,##0.0", "en_US");
+
+                        String simpleValue = newValue.text
+                          .replaceAll(',', '')
+                          .replaceAll('.', '');
+
+                        if (simpleValue.length == 1) simpleValue = simpleValue.padLeft(1, '0');
+
+                        String fullPartOfDouble = simpleValue.substring(0, simpleValue.length - 1);
+                        String decimalPartOfDouble = simpleValue.substring(simpleValue.length - 1);
+                        String newFullValue = '$fullPartOfDouble.$decimalPartOfDouble';
+                        String formattedValue = formatter.format(double.parse(newFullValue));
+                        
+                        return TextEditingValue(
+                          text: formattedValue,
+                          selection: TextSelection.collapsed(
+                            offset: formattedValue.length
+                          )
+                        );
+                      })
+                    ],
+                    onChanged: (value) => widget.onInput != null ? widget.onInput!(double.parse(value.replaceAll(',', ''))) : null
                   )
                 )
               ),
@@ -108,7 +140,7 @@ class _QuantityInputAsDoubleState extends State<QuantityInputAsDouble> {
                   width: 38,
                   height: 38
                 ),
-                onTap: () => widget.onChanged(widget.step),
+                onTap: () => widget.onButtonPress(widget.step),
               )
             ],
           ),

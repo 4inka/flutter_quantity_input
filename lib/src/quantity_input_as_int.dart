@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class QuantityInputAsInt extends StatefulWidget {
   final int value, step;
-  final Function(int) onChanged;
+  final Function(int) onButtonPress;
+  final Function(int)? onInput;
   final Color? buttonColor, iconColor;
   final String label;
   final bool readOnly, acceptsNegatives;
@@ -10,7 +13,8 @@ class QuantityInputAsInt extends StatefulWidget {
   QuantityInputAsInt({
     this.value = 1,
     this.step = 1,
-    required this.onChanged,
+    required this.onButtonPress,
+    this.onInput,
     this.buttonColor,
     this.iconColor,
     this.label = '',
@@ -71,8 +75,8 @@ class _QuantityInputAsIntState extends State<QuantityInputAsInt> {
                   height: 38
                 ),
                 onTap: () {
-                  if (widget.acceptsNegatives) widget.onChanged(-widget.step);
-                  else widget.value == 1 ? widget.onChanged(0) : widget.onChanged(-widget.step);
+                  if (widget.acceptsNegatives) widget.onButtonPress(-widget.step);
+                  else widget.value == 1 ? widget.onButtonPress(0) : widget.onButtonPress(-widget.step);
                 }
               ),
               Container(
@@ -91,6 +95,27 @@ class _QuantityInputAsIntState extends State<QuantityInputAsInt> {
                     ),
                     readOnly: widget.readOnly,
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      TextInputFormatter.withFunction((oldValue, newValue) {
+                        if (newValue.text.contains(RegExp(r'[a-zA-Z]')))
+                          return oldValue;
+                          
+                        var formatter = NumberFormat("#,###,###,###,###,###,###,###,###,###,###,###,###,##0", "en_US");
+
+                        String simpleValue = newValue.text
+                          .replaceAll(',', '');
+
+                        String formattedValue = formatter.format(int.parse(simpleValue));
+                        
+                        return TextEditingValue(
+                          text: formattedValue,
+                          selection: TextSelection.collapsed(
+                            offset: formattedValue.length
+                          )
+                        );
+                      })
+                    ],
+                    onChanged: (value) => widget.onInput != null ? widget.onInput!(int.parse(value.replaceAll(',', ''))) : null
                   )
                 )
               ),
@@ -108,7 +133,7 @@ class _QuantityInputAsIntState extends State<QuantityInputAsInt> {
                   width: 38,
                   height: 38
                 ),
-                onTap: () => widget.onChanged(widget.step),
+                onTap: () => widget.onButtonPress(widget.step),
               )
             ],
           ),
