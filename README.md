@@ -1,14 +1,65 @@
-# quantity_input
+### Quantity Input (README to be finished)
 
-A new Flutter package project.
+<a href="https://www.buymeacoffee.com/4inka" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Beer" style="width: 150px !important;"></a>
 
-## Getting Started
+A Flutter plugin that created 
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+### Usage
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+In the `pubspec.yaml` of your flutter project, add the following dependency:
+
+``` yaml
+dependencies:
+  ...
+  quantity_input: "^0.0.1"
+```
+
+In your library add the following import:
+
+``` dart
+import 'package:flutter/material.dart';
+import 'package:quantity_input/quantity_input.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int simpleIntInputValue = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            QuantityInput(
+              value: simpleIntInput,
+              onChanged: (value) => setState(() => simpleIntInput = int.parse(value.replaceAll(',', '')))
+            ),
+            Text(
+              'Value: $simpleIntInput',
+              style: TextStyle(
+                  color: Colors.black,
+                fontWeight: FontWeight.bold
+              )
+            )
+          ]
+        )
+      )
+    );
+  }
+}
+```
+
+## Preview
+![Overview](https://raw.githubusercontent.com/m3uzz/select_form_field/master/doc/images/select_form_field.gif)
