@@ -19,7 +19,7 @@ class QuantityInput extends StatefulWidget {
   /// ```dart
   /// min(5, 3) == 3
   /// ```
-  final Function(dynamic) onChanged;
+  final Function(String) onChanged;
   final Color? buttonColor, iconColor;
   final String label;
   final bool readOnly;
@@ -133,7 +133,7 @@ class _QuantityInputState extends State<QuantityInput> {
                         offset: formattedValue.length
                       )
                     );
-                  widget.onChanged(currentValue);
+                  widget.onChanged(formattedValue);
                 }
               ),
               Container(
@@ -186,12 +186,7 @@ class _QuantityInputState extends State<QuantityInput> {
                         );
                       })
                     ],
-                    onChanged: (value) {
-                      if (widget.type == QuantityInputType.forInt)
-                        widget.onChanged(int.parse(value.replaceAll(',', '')));
-                      else
-                        widget.onChanged(double.parse(value.replaceAll(',', '')));
-                    }
+                    onChanged: (value) => widget.onChanged(value)
                   )
                 )
               ),
@@ -209,7 +204,7 @@ class _QuantityInputState extends State<QuantityInput> {
                         offset: formattedValue.length
                       )
                     );
-                  widget.onChanged(currentValue);
+                  widget.onChanged(formattedValue);
                 }
                  
               )
