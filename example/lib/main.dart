@@ -33,7 +33,7 @@ class _QuantityInputSampleState extends State<QuantityInputSample> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 QuantityInput(
-                  label: 'For int with unformated value',
+                  label: 'Simple int input',
                   value: simpleIntInput,
                   onChanged: (value) => setState(() => simpleIntInput = value)
                 ),
@@ -47,10 +47,12 @@ class _QuantityInputSampleState extends State<QuantityInputSample> {
                 SizedBox(
                   height: 20
                 ),
-                QuantityInputAsDouble(
-                  label: 'Simple double input (value: $simpleDoubleInput)',
+                QuantityInput(
+                  label: 'Simple double input',
+                  type: QuantityInputType.forDouble,
                   value: simpleDoubleInput,
-                  onChanged: (value) => setState(() => simpleDoubleInput = double.parse(value))
+                  decimalDigits: 2,
+                  onChanged: (value) => setState(() => simpleDoubleInput = value)
                 ),
                 Text(
                   'Value: $simpleDoubleInput',

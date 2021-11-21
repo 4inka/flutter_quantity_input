@@ -34,7 +34,7 @@ class QuantityInput extends StatefulWidget {
   QuantityInput({
     this.value = 1,
     this.step = 1,
-    this.decimalDigits = 0,
+    this.decimalDigits = 1,
     required this.onChanged,
     this.buttonColor,
     this.iconColor,
@@ -52,19 +52,30 @@ class QuantityInput extends StatefulWidget {
 }
 
 class _QuantityInputState extends State<QuantityInput> {
-  late TextEditingController _controller = new TextEditingController();
+  TextEditingController _controller = new TextEditingController();
 
   String valueFormatter(dynamic value) {
     String extraZeros = '';
 
     if(widget.decimalDigits > 0 && widget.type == QuantityInputType.forDouble) {
       extraZeros = '.';
-      extraZeros.padRight(widget.decimalDigits, '0');
+      extraZeros = extraZeros.padRight(widget.decimalDigits + 1, '0');
+    }
+    else if (widget.decimalDigits <= 0 && widget.type == QuantityInputType.forDouble) {
+      throw new Exception('Decimal digits cannot be set to zero when using QuantityInputType.forDouble');
     }
 
     NumberFormat formatter = NumberFormat('#,###,###,###,###,###,###,###,###,##0$extraZeros', 'en_US');
     
     return formatter.format(value);
+  }
+
+  String parseNewDouble(String value) {
+    String fullPartOfDouble = value.substring(0, value.length - widget.decimalDigits);
+    String decimalPartOfDouble = value.substring(value.length - widget.decimalDigits);
+    String newFullValue = '$fullPartOfDouble.$decimalPartOfDouble';
+
+    return newFullValue;
   }
 
   @override
@@ -137,25 +148,35 @@ class _QuantityInputState extends State<QuantityInput> {
                     controller: _controller,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
-                      isDense: true
+                      //isDense: true
                     ),
                     readOnly: widget.readOnly,
                     keyboardType: TextInputType.number,
                     inputFormatters: [
                       TextInputFormatter.withFunction((oldValue, newValue) {
+                        String simpleValue = '';
+                        String formattedValue = '';
                         if (newValue.text.contains(RegExp(r'[a-zA-Z]')))
                           return oldValue;
 
-                        if (newValue.text.isEmpty)
-                          return TextEditingValue(
-                            text: '0',
-                            selection: TextSelection.collapsed(
-                              offset: 1
-                            )
-                          );
+                        if (widget.type == QuantityInputType.forDouble) {
+                          simpleValue = newValue.text.replaceAll(',', '').replaceAll('.', '');
 
-                        String simpleValue = newValue.text.replaceAll(',', '');
-                        String formattedValue = valueFormatter(int.parse(simpleValue));
+                          if (simpleValue.length == 1) {
+                            simpleValue = simpleValue.padLeft(1, '0');
+                          }
+
+                          formattedValue = valueFormatter(double.parse(parseNewDouble(simpleValue)));
+                        }
+                        else {
+                          if(newValue.text.isEmpty)
+                            formattedValue = '0';
+                          else {
+                            simpleValue = newValue.text.replaceAll(',', '');
+
+                            formattedValue = valueFormatter(int.parse(simpleValue));
+                          }
+                        }
 
                         return TextEditingValue(
                           text: formattedValue,
@@ -165,7 +186,12 @@ class _QuantityInputState extends State<QuantityInput> {
                         );
                       })
                     ],
-                    onChanged: (value) => widget.onChanged(int.parse(value.replaceAll(',', '')))
+                    onChanged: (value) {
+                      if (widget.type == QuantityInputType.forInt)
+                        widget.onChanged(int.parse(value.replaceAll(',', '')));
+                      else
+                        widget.onChanged(double.parse(value.replaceAll(',', '')));
+                    }
                   )
                 )
               ),
