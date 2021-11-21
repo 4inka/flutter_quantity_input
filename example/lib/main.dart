@@ -35,7 +35,7 @@ class _QuantityInputSampleState extends State<QuantityInputSample> {
                 QuantityInput(
                   label: 'Simple int input',
                   value: simpleIntInput,
-                  onChanged: (value) => setState(() => simpleIntInput = value)
+                  onChanged: (value) => setState(() => simpleIntInput = int.parse(value.replaceAll(',', '')))
                 ),
                 Text(
                   'Value: $simpleIntInput',
@@ -48,14 +48,48 @@ class _QuantityInputSampleState extends State<QuantityInputSample> {
                   height: 20
                 ),
                 QuantityInput(
+                  label: 'Int input with 3 step',
+                  value: steppedIntInput,
+                  step: 3,
+                  onChanged: (value) => setState(() => steppedIntInput = int.parse(value.replaceAll(',', '')))
+                ),
+                Text(
+                  'Value: $steppedIntInput',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold
+                  )
+                ),
+                SizedBox(
+                  height: 20
+                ),
+                QuantityInput(
                   label: 'Simple double input',
                   type: QuantityInputType.forDouble,
                   value: simpleDoubleInput,
-                  decimalDigits: 2,
-                  onChanged: (value) => setState(() => simpleDoubleInput = value)
+                  decimalDigits: 1,
+                  onChanged: (value) => setState(() => simpleDoubleInput = double.parse(value.replaceAll(',', '')))
                 ),
                 Text(
                   'Value: $simpleDoubleInput',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold
+                  )
+                ),
+                SizedBox(
+                  height: 20
+                ),
+                QuantityInput(
+                  label: 'Double input with 1.5 step',
+                  type: QuantityInputType.forDouble,
+                  value: steppedDoubleInput,
+                  step: 1.5,
+                  decimalDigits: 1,
+                  onChanged: (value) => setState(() => steppedDoubleInput = double.parse(value.replaceAll(',', '')))
+                ),
+                Text(
+                  'Value: $steppedDoubleInput',
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold
