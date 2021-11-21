@@ -1,3 +1,3 @@
-## 0.0.1
+## 0.0.1 - 21-11-2021
 
-* TODO: Describe initial release.
+* Initial Open Source release
