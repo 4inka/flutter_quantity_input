@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ## API
 | Parameter | Type | Description |
-|---------|---------|
+|---------|---------|---------|
 | value `(required)` | `int`, `double` | Value |
 
 ## Issues & Feedback
