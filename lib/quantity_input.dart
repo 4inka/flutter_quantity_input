@@ -11,11 +11,16 @@ export 'src/quantity_input_as_double.dart';
 class QuantityInput extends StatefulWidget {
   /// Has to be an int or double depending on QuantityInputType variable
   final dynamic value;
+  /// The step in which
   final dynamic step;
+  /// 
   final int decimalDigits;
   /// Set min value to be displayed in input. If not set, it will be set to 1
   final dynamic minValue;
+  /// Set max value to be displayed in input. If not set, it will be set to 1
   final dynamic maxValue;
+  /// The width of the textfield input
+  final double inputWidth;
   /// ```dart
   /// min(5, 3) == 3
   /// ```
@@ -27,8 +32,10 @@ class QuantityInput extends StatefulWidget {
   /// 
   /// Setting property to true enables the option to display negative values
   final bool acceptsNegatives;
+  final bool acceptsZero;
   final QuantityInputType? type;
   final bool returnFormattedValue;
+  final InputDecoration? decoration;
 
   /// Test widget 1
   QuantityInput({
@@ -41,10 +48,13 @@ class QuantityInput extends StatefulWidget {
     this.label = '',
     this.readOnly = false,
     this.acceptsNegatives = false,
+    this.acceptsZero = false,
     this.minValue = 1,
     this.maxValue = 1000,
     this.type = QuantityInputType.forInt,
-    this.returnFormattedValue = false
+    this.returnFormattedValue = false,
+    this.inputWidth = 80,
+    this.decoration
   });
 
   @override
@@ -53,6 +63,14 @@ class QuantityInput extends StatefulWidget {
 
 class _QuantityInputState extends State<QuantityInput> {
   TextEditingController _controller = new TextEditingController();
+
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.text = valueFormatter(widget.value);
+    //throw new Exception('Then using QuantityInputType.forDouble');
+  }
 
   String valueFormatter(dynamic value) {
     String extraZeros = '';
@@ -76,12 +94,6 @@ class _QuantityInputState extends State<QuantityInput> {
     String newFullValue = '$fullPartOfDouble.$decimalPartOfDouble';
 
     return newFullValue;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _controller.text = valueFormatter(widget.value);
   }
 
   @override
@@ -120,7 +132,10 @@ class _QuantityInputState extends State<QuantityInput> {
                 onTap: () {
                   dynamic currentValue = 0;
 
-                  if (widget.acceptsNegatives || widget.value != 1)
+                  if (widget.acceptsNegatives ||
+                    ((widget.value - widget.step) > 0 && widget.type == QuantityInputType.forDouble) ||
+                    ((widget.value - widget.step) >= 1 && widget.type == QuantityInputType.forInt) ||
+                    (widget.acceptsZero && (widget.value - widget.step) == 0))
                     currentValue = widget.value - widget.step;
                   else
                     currentValue = widget.value;
@@ -137,19 +152,14 @@ class _QuantityInputState extends State<QuantityInput> {
                 }
               ),
               Container(
-                constraints: BoxConstraints(
-                  maxHeight: 38,
-                  maxWidth:150,
-                  minWidth: 50
-                ),
+                height: 38,
+                width: widget.inputWidth,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5),
                   child: TextFormField(
                     controller: _controller,
                     textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      //isDense: true
-                    ),
+                    decoration: widget.decoration,
                     readOnly: widget.readOnly,
                     keyboardType: TextInputType.number,
                     inputFormatters: [
