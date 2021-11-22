@@ -1,10 +1,13 @@
-### Quantity Input (README to be finished)
+# Quantity Input (README to be finished)
 
 <a href="https://www.buymeacoffee.com/4inka" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Beer" style="width: 150px !important;"></a>
 
 A Flutter plugin that created 
 
-### Usage
+## Preview
+![Overview](https://raw.githubusercontent.com/m3uzz/select_form_field/master/doc/images/select_form_field.gif)
+
+## Usage
 
 In the `pubspec.yaml` of your flutter project, add the following dependency:
 
@@ -14,7 +17,7 @@ dependencies:
   quantity_input: "^0.0.1"
 ```
 
-In your library add the following import:
+You can create a simple quantity input widget with the following example:
 
 ``` dart
 import 'package:flutter/material.dart';
@@ -30,13 +33,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int simpleIntInputValue = 0;
+  int simpleIntInput = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Example'),
       ),
       body: Center(
         Column(
@@ -61,5 +64,13 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-## Preview
-![Overview](https://raw.githubusercontent.com/m3uzz/select_form_field/master/doc/images/select_form_field.gif)
+## API
+| Parameter | Description |
+|---------|---------|
+| value `(required)` | Value as `int` or `double` |
+
+## Issues & Feedback
+If you encounter any issue you can report it by filling an issue. Thank you for the support!
+
+## Contributing
+Every pull request is welcome
