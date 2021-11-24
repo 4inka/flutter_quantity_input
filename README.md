@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ## API
 | Attribute | Type | Required | Description | Default value |
-|:---|:---|:---|:---|:---|
+|:---|:---|:---:|:---|:---|
 | value | `int`/`double` | :heavy_check_mark: | This is the description |  |
 | onChanged | `Function(String)` | :heavy_check_mark: | This is the description |  |
 | step | `int`/`double` | :x: | This is the description |  |
