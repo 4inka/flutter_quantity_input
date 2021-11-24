@@ -1,3 +1,24 @@
+// MIT License
+
+// Copyright 2021 4inka
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is furnished
+// to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+
 library quantity_input;
 
 import 'package:flutter/material.dart';
@@ -5,6 +26,9 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:quantity_input/widgets/icon-button.widget.dart';
 
+/// quantity input type
+/// [int] default mask type, to format value as int
+/// [double] to format value as double
 enum QuantityInputType {
   int,
   double,
@@ -13,33 +37,39 @@ enum QuantityInputType {
 class QuantityInput extends StatefulWidget {
   /// Has to be an int or double depending on QuantityInputType variable
   final dynamic value;
-  /// The step in which
+  /// The value that is incremented or decremented each time the user presses a button
   final dynamic step;
-  /// 
+  /// The number of decimal places that can be displayed for double input
   final int decimalDigits;
-  /// Set min value to be displayed in input. If not set, it will be set to 1
+  /// Set min value to be displayed in input
   final dynamic minValue;
-  /// Set max value to be displayed in input. If not set, it will be set to 1
+  /// Set max value to be displayed in input
   final dynamic maxValue;
   /// The width of the textfield input
   final double inputWidth;
-  /// ```dart
-  /// min(5, 3) == 3
-  /// ```
+  /// Detects changes to the input and sends value through param
   final Function(String) onChanged;
-  final Color? buttonColor, iconColor;
+  /// Sets color for increment and decrement buttons
+  final Color? buttonColor;
+  /// Sets color for icons inside increment and decrement buttons
+  final Color? iconColor;
+  /// Sets label 
   final String label;
   final bool readOnly;
-  /// Default to false
-  /// 
-  /// Setting property to true enables the option to display negative values
-  final bool acceptsNegatives;
+  /// If set to true, the input can accept the value 0
   final bool acceptsZero;
+  /// If set to true, the input can accept negative values
+  final bool acceptsNegatives;
+  /// 
   final QuantityInputType? type;
-  final bool returnFormattedValue;
+  /// Sets custom InputDecoration to the widget TextFormField
   final InputDecoration? decoration;
+  /// Sets elevation to increment and decrement buttons
+  final double elevation;
 
-  /// Test widget 1
+  /// Created a widget that can be used to manage number inputs
+  /// 
+  /// Widget can manage integer or double values
   QuantityInput({
     this.value = 1,
     this.step = 1,
@@ -52,11 +82,11 @@ class QuantityInput extends StatefulWidget {
     this.acceptsNegatives = false,
     this.acceptsZero = false,
     this.minValue = 1,
-    this.maxValue = 1000,
+    this.maxValue = 100,
     this.type = QuantityInputType.int,
-    this.returnFormattedValue = false,
     this.inputWidth = 80,
-    this.decoration
+    this.decoration,
+    this.elevation = 3
   })
     : assert(decimalDigits > 0, 'Decimal digits cannot be set to zero or negative value'),
      assert(!acceptsNegatives && value >= 0, 'Cannot set negative value if input dos');
@@ -217,7 +247,6 @@ class _QuantityInputState extends State<QuantityInput> {
                     );
                   widget.onChanged(formattedValue);
                 }
-                 
               )
             ]
           )
