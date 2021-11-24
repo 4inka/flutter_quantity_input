@@ -74,13 +74,16 @@ class _MyHomePageState extends State<MyHomePage> {
 ```
 
 ## API
-| Parameter | Type | Description |
-|:---|:---|:---|
-| value `(required)` | `int`, `double` | Value |
-| onChanged `(required)` | Function(String) | Value |
+| Attribute | Type | Required | Description | Default value |
+|:---|:---|:---|:---|:---|
+| value | `int`/`double` | :heavy_check_mark: | This is the description |  |
+| onChanged | `Function(String)` | :heavy_check_mark: | This is the description |  |
+| step | `int`/`double` | :x: | This is the description |  |
 
-## Issues & Feedback
-If you encounter any issue you can report it by filling an issue. Thank you for the support!
+## Issues
+If you encounter any issue you can report it by filling an [issue](https://github.com/4inka/flutter_quantity_input/issues).
 
 ## Contributing
 Every pull request is welcome
+
+Thank you for the support!
