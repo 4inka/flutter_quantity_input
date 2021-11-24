@@ -37,6 +37,8 @@ enum QuantityInputType {
 class QuantityInput extends StatefulWidget {
   /// Has to be an int or double depending on QuantityInputType variable
   final dynamic value;
+  /// Detects changes to the input and sends value through param
+  final Function(String) onChanged;
   /// The value that is incremented or decremented each time the user presses a button
   final dynamic step;
   /// The number of decimal places that can be displayed for double input
@@ -47,14 +49,13 @@ class QuantityInput extends StatefulWidget {
   final dynamic maxValue;
   /// The width of the textfield input
   final double inputWidth;
-  /// Detects changes to the input and sends value through param
-  final Function(String) onChanged;
   /// Sets color for increment and decrement buttons
   final Color? buttonColor;
   /// Sets color for icons inside increment and decrement buttons
   final Color? iconColor;
-  /// Sets label 
+  /// Sets label for input
   final String label;
+  /// Determines if the input will be readOnly
   final bool readOnly;
   /// If set to true, the input can accept the value 0
   final bool acceptsZero;
@@ -67,7 +68,7 @@ class QuantityInput extends StatefulWidget {
   /// Sets elevation to increment and decrement buttons
   final double elevation;
 
-  /// Created a widget that can be used to manage number inputs
+  /// Creates a widget that can be used to manage number inputs
   /// 
   /// Widget can manage integer or double values
   QuantityInput({
