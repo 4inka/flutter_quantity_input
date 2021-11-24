@@ -32,7 +32,7 @@ class IconButtonWidget extends StatelessWidget {
     this.buttonColor,
     this.iconColor,
     required this.onTap,
-    this.elevation = 3
+    this.elevation = 5
   });
 
   @override
