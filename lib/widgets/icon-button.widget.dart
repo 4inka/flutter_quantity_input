@@ -14,21 +14,23 @@ class IconButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        child: Icon(
-          icon,
-          size: 25,
-          color: iconColor ?? Colors.white
+    return Material(
+      elevation: 3,
+      color: buttonColor ?? Theme.of(context).primaryColor,
+      borderRadius: BorderRadius.circular(5),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+          width: 38,
+          height: 38,
+          child: Icon(
+            icon,
+            size: 25,
+            color: iconColor ?? Colors.white
+          )
         ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: buttonColor ?? Theme.of(context).primaryColor,
-        ),
-        width: 38,
-        height: 38
-      ),
-      onTap: () => onTap()
+        onTap: () => onTap()
+      )
     );
   }
 }
