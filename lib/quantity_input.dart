@@ -6,8 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:quantity_input/widgets/icon-button.widget.dart';
 
 enum QuantityInputType {
-  forInt,
-  forDouble,
+  int,
+  double,
 }
 
 class QuantityInput extends StatefulWidget {
@@ -53,7 +53,7 @@ class QuantityInput extends StatefulWidget {
     this.acceptsZero = false,
     this.minValue = 1,
     this.maxValue = 1000,
-    this.type = QuantityInputType.forInt,
+    this.type = QuantityInputType.int,
     this.returnFormattedValue = false,
     this.inputWidth = 80,
     this.decoration
@@ -77,7 +77,7 @@ class _QuantityInputState extends State<QuantityInput> {
   String valueFormatter(dynamic value) {
     String extraZeros = '';
 
-    if(widget.decimalDigits > 0 && widget.type == QuantityInputType.forDouble) {
+    if(widget.decimalDigits > 0 && widget.type == QuantityInputType.double) {
       extraZeros = '.';
       extraZeros = extraZeros.padRight(widget.decimalDigits + 1, '0');
     }
@@ -132,8 +132,8 @@ class _QuantityInputState extends State<QuantityInput> {
                   dynamic currentValue = 0;
 
                   if (widget.acceptsNegatives ||
-                    ((widget.value - widget.step) > 0 && widget.type == QuantityInputType.forDouble) ||
-                    ((widget.value - widget.step) >= 1 && widget.type == QuantityInputType.forInt) ||
+                    ((widget.value - widget.step) > 0 && widget.type == QuantityInputType.double) ||
+                    ((widget.value - widget.step) >= 1 && widget.type == QuantityInputType.int) ||
                     (widget.acceptsZero && (widget.value - widget.step) == 0))
                     currentValue = widget.value - widget.step;
                   else
@@ -168,7 +168,7 @@ class _QuantityInputState extends State<QuantityInput> {
                         if (newValue.text.contains(RegExp(r'[a-zA-Z]')))
                           return oldValue;
 
-                        if (widget.type == QuantityInputType.forDouble) {
+                        if (widget.type == QuantityInputType.double) {
                           simpleValue = newValue.text.replaceAll(',', '').replaceAll('.', '');
 
                           if (simpleValue.length == 1) {

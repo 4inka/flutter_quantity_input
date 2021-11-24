@@ -65,7 +65,7 @@ class _QuantityInputSampleState extends State<QuantityInputSample> {
                 ),
                 QuantityInput(
                   label: 'Simple double input',
-                  type: QuantityInputType.forDouble,
+                  type: QuantityInputType.double,
                   value: simpleDoubleInput,
                   decimalDigits: 1,
                   onChanged: (value) => setState(() => simpleDoubleInput = double.parse(value.replaceAll(',', '')))
@@ -82,7 +82,7 @@ class _QuantityInputSampleState extends State<QuantityInputSample> {
                 ),
                 QuantityInput(
                   label: 'Double input with 1.5 step',
-                  type: QuantityInputType.forDouble,
+                  type: QuantityInputType.double,
                   value: steppedDoubleInput,
                   step: 1.5,
                   decimalDigits: 1,
