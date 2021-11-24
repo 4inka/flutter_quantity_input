@@ -2,10 +2,10 @@
 
 <a href="https://www.buymeacoffee.com/4inka" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Beer" style="width: 150px !important;"></a>
 
-A Flutter plugin that created 
+A Flutter plugin to handle number inputs with increment and decrement buttons.
 
 ## Preview
-![Overview](https://raw.githubusercontent.com/m3uzz/select_form_field/master/doc/images/select_form_field.gif)
+![Preview](https://raw.githubusercontent.com/m3uzz/select_form_field/master/doc/images/select_form_field.gif)
 
 ## Usage
 
@@ -37,26 +37,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Example'),
+    return MaterialApp(
+      title: 'Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      body: Center(
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            QuantityInput(
-              value: simpleIntInput,
-              onChanged: (value) => setState(() => simpleIntInput = int.parse(value.replaceAll(',', '')))
-            ),
-            Text(
-              'Value: $simpleIntInput',
-              style: TextStyle(
-                  color: Colors.black,
-                fontWeight: FontWeight.bold
-              )
+      home: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Example')
+          ),
+          body: Center(
+            child: Column(  
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                QuantityInput(
+                  value: simpleIntInput,
+                  onChanged: (value) => setState(() => simpleIntInput = int.parse(value.replaceAll(',', '')))
+                ),
+                Text(
+                  'Value: $simpleIntInput',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold
+                  )
+                )
+              ]
             )
-          ]
+          )
         )
       )
     );
@@ -68,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
 | Parameter | Type | Description |
 |:---|:---|:---|
 | value `(required)` | `int`, `double` | Value |
+| onChanged `(required)` | Function(String) | Value |
 
 ## Issues & Feedback
 If you encounter any issue you can report it by filling an issue. Thank you for the support!
