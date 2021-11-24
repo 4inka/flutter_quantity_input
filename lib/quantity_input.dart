@@ -5,8 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:quantity_input/widgets/icon-button.widget.dart';
 
-export 'src/quantity_input_as_int.dart';
-export 'src/quantity_input_as_double.dart';
+enum QuantityInputType {
+  forInt,
+  forDouble,
+}
 
 class QuantityInput extends StatefulWidget {
   /// Has to be an int or double depending on QuantityInputType variable
@@ -55,7 +57,9 @@ class QuantityInput extends StatefulWidget {
     this.returnFormattedValue = false,
     this.inputWidth = 80,
     this.decoration
-  });
+  })
+    : assert(decimalDigits > 0, 'Decimal digits cannot be set to zero or negative value'),
+     assert(!acceptsNegatives && value >= 0, 'Cannot set negative value if input dos');
 
   @override
   _QuantityInputState createState() => _QuantityInputState();
@@ -64,12 +68,10 @@ class QuantityInput extends StatefulWidget {
 class _QuantityInputState extends State<QuantityInput> {
   TextEditingController _controller = new TextEditingController();
 
-
   @override
   void initState() {
     super.initState();
     _controller.text = valueFormatter(widget.value);
-    //throw new Exception('Then using QuantityInputType.forDouble');
   }
 
   String valueFormatter(dynamic value) {
@@ -78,9 +80,6 @@ class _QuantityInputState extends State<QuantityInput> {
     if(widget.decimalDigits > 0 && widget.type == QuantityInputType.forDouble) {
       extraZeros = '.';
       extraZeros = extraZeros.padRight(widget.decimalDigits + 1, '0');
-    }
-    else if (widget.decimalDigits <= 0 && widget.type == QuantityInputType.forDouble) {
-      throw new Exception('Decimal digits cannot be set to zero when using QuantityInputType.forDouble');
     }
 
     NumberFormat formatter = NumberFormat('#,###,###,###,###,###,###,###,###,##0$extraZeros', 'en_US');
@@ -224,9 +223,4 @@ class _QuantityInputState extends State<QuantityInput> {
       )
     );
   }
-}
-
-enum QuantityInputType {
-  forInt,
-  forDouble,
 }
