@@ -1,3 +1,3 @@
-## 0.0.1 - 21-11-2021
+## 1.0.0 - 24-11-2021
 
 * Initial Open Source release
