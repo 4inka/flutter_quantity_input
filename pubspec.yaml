@@ -1,6 +1,6 @@
 name: quantity_input
 description: A simple widget to help you handle quantity inputs with formatted value
-version: 0.0.1
+version: 1.0.0
 homepage:
 
 environment:
