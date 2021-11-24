@@ -60,7 +60,7 @@ class QuantityInput extends StatefulWidget {
   final bool acceptsZero;
   /// If set to true, the input can accept negative values
   final bool acceptsNegatives;
-  /// 
+  /// Determines if the input will manage values as int or double
   final QuantityInputType? type;
   /// Sets custom InputDecoration to the widget TextFormField
   final InputDecoration? decoration;
