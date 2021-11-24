@@ -6,7 +6,7 @@
 A Flutter plugin to handle number inputs with increment and decrement buttons.
 
 ## Preview
-![Preview](https://raw.githubusercontent.com/4inka/quantity_input/main/preview/preview.gif?token=AK4B3SUGMN3BTBSKGO7VRYTBU6LK2)
+![Preview](https://raw.githubusercontent.com/4inka/flutter_quantity_input/main/preview/preview.gif)
 
 ## Usage
 
@@ -83,7 +83,4 @@ class _MyHomePageState extends State<MyHomePage> {
 ## Issues
 If you encounter any issue you can report it by filling an [issue](https://github.com/4inka/flutter_quantity_input/issues).
 
-## Contributing
-Every pull request is welcome
-
-Thank you for the support!
+### Thank you for the support!
