@@ -71,10 +71,10 @@ class QuantityInput extends StatefulWidget {
   /// 
   /// Widget can manage integer or double values
   QuantityInput({
-    this.value = 1,
+    required this.value,
+    required this.onChanged,
     this.step = 1,
     this.decimalDigits = 1,
-    required this.onChanged,
     this.buttonColor,
     this.iconColor,
     this.label = '',
