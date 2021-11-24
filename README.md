@@ -5,7 +5,7 @@
 A Flutter plugin to handle number inputs with increment and decrement buttons.
 
 ## Preview
-![Preview](https://gitlab.com/f1042/quantity-input/-/blob/main/preview/preview.gif)
+![Preview](https://gitlab.com/f1042/quantity-input/-/blob/df266328cf1eda43600f6e2b5e174347178529b9/preview/preview.gif)
 
 ## Usage
 
