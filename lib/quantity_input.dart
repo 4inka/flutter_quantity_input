@@ -128,6 +128,7 @@ class _QuantityInputState extends State<QuantityInput> {
                 icon: Icons.remove,
                 iconColor: widget.iconColor,
                 buttonColor: widget.buttonColor,
+                elevation: widget.elevation,
                 onTap: () {
                   dynamic currentValue = 0;
 
@@ -203,6 +204,7 @@ class _QuantityInputState extends State<QuantityInput> {
                 icon: Icons.add,
                 iconColor: widget.iconColor,
                 buttonColor: widget.buttonColor,
+                elevation: widget.elevation,
                 onTap: () {
                   dynamic currentValue = widget.value + widget.step;
                   String formattedValue = valueFormatter(currentValue);
