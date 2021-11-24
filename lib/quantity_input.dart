@@ -116,8 +116,8 @@ class _QuantityInputState extends State<QuantityInput> {
                   fontSize: 13,
                   fontWeight: FontWeight.w500
                 )
-              ),
-            ),
+              )
+            )
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
