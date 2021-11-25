@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
 | decoration | `InputDecoration` | :x: | Sets custom InputDecoration to the widget TextFormField |  |
 | elevation | `double` | :x: | Sets elevation to increment and decrement buttons | 5 |
 
-> If the value returned by `onChanged` has tousand separators, it is recommended to remove the commas from String before parsing as shown in example before.
+**If the value returned by `onChanged` has tousand separators, it is recommended to remove the commas from String before parsing as shown in example before.**
 
 ## Issues & Suggestions
 If you encounter any issue you or want to leave a suggestion you can do it by filling an [issue](https://github.com/4inka/flutter_quantity_input/issues).
