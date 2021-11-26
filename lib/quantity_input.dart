@@ -96,7 +96,7 @@ class QuantityInput extends StatefulWidget {
     this.elevation = 5
   })
     : assert(decimalDigits > 0, 'Decimal digits cannot be set to zero or negative value'),
-     assert(!acceptsNegatives && value >= 0, 'Cannot set negative value if input dos');
+     assert(!(acceptsZero && acceptsNegatives), 'acceptsZero and acceptsNegatives cannot be simultaneously true');
 
   @override
   _QuantityInputState createState() => _QuantityInputState();
