@@ -89,7 +89,7 @@ class QuantityInput extends StatefulWidget {
     this.acceptsNegatives = false,
     this.acceptsZero = false,
     this.minValue = 1,
-    this.maxValue = 100,
+    this.maxValue = 100000,
     this.type = QuantityInputType.int,
     this.inputWidth = 80,
     this.decoration,
@@ -243,7 +243,15 @@ class _QuantityInputState extends State<QuantityInput> {
                 buttonColor: widget.buttonColor,
                 elevation: widget.elevation,
                 onTap: () {
-                  dynamic currentValue = widget.value + widget.step;
+                  dynamic currentValue = 0;
+
+                  if (widget.maxValue >= widget.value && widget.maxValue >= widget.value + widget.step) {
+                      currentValue = widget.value + widget.step;
+                    }
+                  else {
+                    currentValue = widget.value;
+                  }
+
                   String formattedValue = valueFormatter(currentValue);
                   _controller
                     ..value = TextEditingValue(
