@@ -15,7 +15,7 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 ``` yaml
 dependencies:
   ...
-  quantity_input: ^1.0.1
+  quantity_input: ^1.0.2
 ```
 
 You can create a simple quantity input widget with the following example:

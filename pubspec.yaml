@@ -1,6 +1,6 @@
 name: quantity_input
 description: A simple widget to help you handle quantity inputs with formatted value
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/4inka/flutter_quantity_input
 
 environment:
